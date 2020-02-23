@@ -1,9 +1,40 @@
+
 #content {
   margin-left: auto;
   margin-right: auto;
   width: 650px;
 }
 
+body
+{
+    background-color: rgba(0, 162, 255, 0.548);
+}
+.main
+{
+    color:black;
+    font-weight:bold;
+    text-decoration: underline;
+    text-align: center;
+}
+.circular--square {
+  border-radius: 60%;
+}
+
+
+
 #greeting-container {
   margin-top: 20px;
 }
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 33.33%;
+  padding: 5px;
+}
+
+
+
+
