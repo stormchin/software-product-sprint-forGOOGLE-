@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <title>Storm's Portfolio</title>
+    
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="getName()">
     <div id="content">
+      <p id="hello"></p>
       <div><img src= "/images/headshotcropped.png" alt="Storm Chin" class="circular--square"><h1>Storm's Portfolio</h1></div>
       
       <h2 class="main">BIO</h2>
@@ -33,10 +35,10 @@
         <img src="/images/jamaica1.jpg" alt="Jamaica 1" style="width:100%">
     </div>
     <div class="column">
-        <img src="/images/jamaica2.jpg" alt="Jamaica 1" style="width:100%">
+        <img src="/images/jamaica2.jpg" alt="Jamaica 2" style="width:100%">
     </div>
     <div class="column">
-        <img src="/images/jamaica3.jpg" alt="Jamaica 1" style="width:100%">
+        <img src="/images/jamaica3.jpg" alt="Jamaica 3" style="width:100%">
     </div>
     
     </div>
@@ -100,8 +102,10 @@
         <div class="column"><a href="https://github.com/stormchin" target="_blank"><img src="/images/githubLogo.png" width="50%"></a></div>
       </div>
       <p>Click here to get a random fact about me:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
+      <button onclick="addRandomGreeting()">FACT</button>
       <div id="greeting-container"></div>
     </div>
+    <p>Below is me getting json files from a server and outputting the data</p>
+    <ul id="messages"></ul>
   </body>
 </html>

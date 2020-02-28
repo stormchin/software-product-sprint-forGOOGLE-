@@ -13,7 +13,8 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,10 +24,42 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+    private List<String> messages;
+  
+  @Override
+  public void init() 
+  {
+    messages = new ArrayList<>();
+    messages.add("This is message one.");
+    messages.add("This is messsage two! Welcome to the party json!");
+    messages.add("This is messsage three! This is too easy...");
+  }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello Storm</h1>");
+    String json = createJson();
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+
+/**
+   * Creates Json file to contain an ArrayList<string>.
+   */
+private String createJson() {
+    String json = "{\"messages\":[";
+    json += "\"";
+    json += messages.get(0);
+    json +="\"";
+    json += ", ";
+    json += "\"";
+    json += messages.get(1);
+    json +="\"";
+    json += ", ";
+    json += "\"";
+    json += messages.get(2);
+    json +="\"";
+    json += "]}";
+    return json;
   }
 }
