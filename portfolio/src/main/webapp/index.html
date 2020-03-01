@@ -104,8 +104,14 @@
       <p>Click here to get a random fact about me:</p>
       <button onclick="addRandomGreeting()">FACT</button>
       <div id="greeting-container"></div>
-    </div>
-    <p>Below is me getting json files from a server and outputting the data</p>
+    <form action="/data" method="POST">
+      <p>Enter Your Name:</p>
+      <input type="text" name ="name_input">
+      <br/><br/>
+      <input type="submit"/>
+    </form>
+    <p>People who have visited my page:</p>
     <ul id="messages"></ul>
+    </div>
   </body>
 </html>
