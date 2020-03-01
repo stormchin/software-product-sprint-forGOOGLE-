@@ -13,7 +13,9 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
+import com.google.gson.Gson;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
@@ -24,42 +26,59 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-    private List<String> messages;
+    
+    public class Name 
+    {
+        private ArrayList<String> names = new ArrayList<String>();
+    }
   
-  @Override
-  public void init() 
-  {
-    messages = new ArrayList<>();
-    messages.add("This is message one.");
-    messages.add("This is messsage two! Welcome to the party json!");
-    messages.add("This is messsage three! This is too easy...");
-  }
+    private Name name = new Name();
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = createJson();
-    response.setContentType("application/json;");
-    response.getWriter().println(json);
-  }
+  
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Gson gson = new Gson(); 
+        String json = gson.toJson(name);
+        response.setContentType("application/json;");
+        response.getWriter().println(json);
+    }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        getNames(request);
+        response.sendRedirect("https://8080-dot-10831547-dot-devshell.appspot.com/");
+    }
 
 
-/**
-   * Creates Json file to contain an ArrayList<string>.
-   */
-private String createJson() {
-    String json = "{\"messages\":[";
-    json += "\"";
-    json += messages.get(0);
-    json +="\"";
-    json += ", ";
-    json += "\"";
-    json += messages.get(1);
-    json +="\"";
-    json += ", ";
-    json += "\"";
-    json += messages.get(2);
-    json +="\"";
-    json += "]}";
-    return json;
-  }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //  Parses information pushed to server from name_input box.
+    //  Separates names where ", " is found.
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    private void getNames(HttpServletRequest request)
+    {
+        String raw_names = request.getParameter("name_input");
+        String [] namesArray = raw_names.split(", ");
+        String [] namesFormated = format(namesArray,namesArray.length);
+        for(int i=0; i< namesFormated.length;i++)
+        {
+            name.names.add(namesFormated[i]);
+        }
+    }
+
+    private String[] format(String[] names,int size)
+    {
+        for(int i =0; i< size; i++)
+        {
+            String firstChar = names[i].substring(0,1);
+            String lastFewChar = names[i].substring(1);
+            firstChar.toUpperCase();
+            names[i] = firstChar + lastFewChar;
+        }
+        return names;
+    }
+
+
 }
+
