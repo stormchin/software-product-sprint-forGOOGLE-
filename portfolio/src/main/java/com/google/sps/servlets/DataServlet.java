@@ -13,6 +13,12 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,16 +35,26 @@ public class DataServlet extends HttpServlet {
     
     public class Name 
     {
-        private ArrayList<String> names = new ArrayList<String>();
+        public ArrayList<String> names = new ArrayList<String>();
     }
   
-    private Name name = new Name();
+    Name name = new Name();
+   
 
-  
+    
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Name name = new Name();
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         Gson gson = new Gson(); 
+        Query query = new Query("Names");
+        PreparedQuery results = datastore.prepare(query);
+        
+        for (Entity entity : results.asIterable()) 
+        {
+            name.names.add( (String) entity.getProperty("viewer0"));
+        }
         String json = gson.toJson(name);
         response.setContentType("application/json;");
         response.getWriter().println(json);
@@ -46,7 +62,10 @@ public class DataServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        getNames(request);
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        Entity namesEntity = new Entity("Names");
+        getNames(request, namesEntity, datastore);
+
         response.sendRedirect("https://8080-dot-10831547-dot-devshell.appspot.com/");
     }
 
@@ -56,15 +75,19 @@ public class DataServlet extends HttpServlet {
     //  Separates names where ", " is found.
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    private void getNames(HttpServletRequest request)
+    private void getNames(HttpServletRequest request, Entity namesEntity, DatastoreService datastore)
     {
-        String raw_names = request.getParameter("name_input");
-        String [] namesArray = raw_names.split(", ");
+        
+        String rawNames = request.getParameter("name_input");
+        String [] namesArray = rawNames.split(", ");
         String [] namesFormated = format(namesArray,namesArray.length);
         for(int i=0; i< namesFormated.length;i++)
         {
-            name.names.add(namesFormated[i]);
+            namesEntity.setProperty("viewer0", namesFormated[i]);
+            datastore.put(namesEntity);
+            namesEntity = new Entity("Names");
         }
+
     }
 
     private String[] format(String[] names,int size)
