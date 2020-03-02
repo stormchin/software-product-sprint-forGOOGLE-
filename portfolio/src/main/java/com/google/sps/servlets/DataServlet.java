@@ -54,6 +54,7 @@ public class DataServlet extends HttpServlet {
         for (Entity entity : results.asIterable()) 
         {
             name.names.add( (String) entity.getProperty("viewer0"));
+
         }
         String json = gson.toJson(name);
         response.setContentType("application/json;");
