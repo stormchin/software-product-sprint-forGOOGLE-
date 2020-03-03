@@ -76,7 +76,7 @@ public class ShoutboxServlet extends HttpServlet {
       response.sendRedirect("/shoutbox");
       return;
     }
-    
+
     String text = request.getParameter("text");
     String email = userService.getCurrentUser().getEmail();
 
