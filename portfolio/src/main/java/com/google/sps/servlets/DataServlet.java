@@ -37,11 +37,8 @@ public class DataServlet extends HttpServlet {
     {
         public ArrayList<String> names = new ArrayList<String>();
     }
-  
-    Name name = new Name();
-   
 
-    
+    Name name = new Name();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -50,7 +47,6 @@ public class DataServlet extends HttpServlet {
         Gson gson = new Gson(); 
         Query query = new Query("Names");
         PreparedQuery results = datastore.prepare(query);
-        
         for (Entity entity : results.asIterable()) 
         {
             name.names.add( (String) entity.getProperty("viewer0"));
@@ -67,7 +63,7 @@ public class DataServlet extends HttpServlet {
         Entity namesEntity = new Entity("Names");
         getNames(request, namesEntity, datastore);
 
-        response.sendRedirect("https://8080-dot-10831547-dot-devshell.appspot.com/");
+        response.sendRedirect("/index.html");
     }
 
 
