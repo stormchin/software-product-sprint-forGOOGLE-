@@ -21,28 +21,36 @@ import java.util.concurrent.TimeUnit;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet
 {
+    public class LoginState
+        {
+            private Boolean login = false;
+            private String loginUrl;
+        }
+
     @Override
     public void doGet (HttpServletRequest request, HttpServletResponse response) throws IOException
     {   
-        //Sets response type to html. We are writing directly to the page.
-        response.setContentType("text/html");
+        LoginState person = new LoginState();
+
+        //Sets response type to json.
+        response.setContentType("application/json;");
+        
         //Create UserService instance
         UserService userService = UserServiceFactory.getUserService();
-        //if user is logged in we want to redirect back to index.html
+        
         if(userService.isUserLoggedIn())
         {
-            String userEmail = userService.getCurrentUser().getEmail();
-            response.getWriter().println("<h1> You are already logged into " + userEmail+ "</h1>");
-            String logoutUrl = userService.createLogoutURL("/index.html");
-            response.getWriter().println("<p><a href=\"" + logoutUrl + "\">Logout</a>.</p>");
+            person.login = true;
         }
-        else //If user is not logged in prompt them to do so.
+        else
         {
-            // To log someone in we must have a place to go to after login
-            String afterLoginRedirect = "/index.html";
-            //Now that we have somewhere to go to after login we can create loginURl
-            String loginUrl = userService.createLoginURL(afterLoginRedirect);
-            response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+            String urlToRedirectToAfterUserLogsIn = "/index.html";
+            String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+            person.loginUrl = loginUrl;
         }
+        
+        Gson loginGson = new Gson();
+        String loginJson = loginGson.toJson(person);
+        response.getWriter().println(loginJson);
     }
 }

@@ -27,6 +27,7 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
+
 function getName() {
     var i;
     fetch('/data').then(response => response.json()).then((jsonFile) => {
@@ -48,4 +49,24 @@ function createListElement(text) {
   return liElement;
 }
 
-  
+function getLogin() {
+    //gets login status
+    fetch('/login').then(response => response.json()).then((jsonFile) => {
+    const divTag = document.getElementById('loginForm');
+    divTag.innerHTML = '';
+    if (jsonFile.login == false)
+    {
+        var loginUrl = jsonFile.loginUrl;
+        var link = document.createElement("a");
+        link.setAttribute('href', loginUrl);
+        link.innerHTML ="Login to comment!";
+        divTag.appendChild(link);
+    }
+    else
+    {
+        //Creates form to submit comments
+        divTag.innerHTML = "<form action='/data' method='POST'> <p>Enter Your Name:</p><input type='text' name ='name_input'><br/><br/><input type='submit'/></form>";
+    }
+    
+  });
+}
