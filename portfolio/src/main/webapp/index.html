@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body onload="getName()">
+  <body onload="getName(); getLogin()">
     <div id="content">
       <p id="hello"></p>
       <div><img src= "/images/headshotcropped.png" alt="Storm Chin" class="circular--square"><h1>Storm's Portfolio</h1></div>
@@ -104,12 +104,7 @@
       <p>Click here to get a random fact about me:</p>
       <button onclick="addRandomGreeting()">FACT</button>
       <div id="greeting-container"></div>
-    <form action="/data" method="POST">
-      <p>Enter Your Name:</p>
-      <input type="text" name ="name_input">
-      <br/><br/>
-      <input type="submit"/>
-    </form>
+      <div id="loginForm"></div>
     <p>People who have visited my page:</p>
     <ul id="messages"></ul>
     </div>
