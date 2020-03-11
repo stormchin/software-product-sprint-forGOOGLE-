@@ -28,6 +28,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+import java.util.concurrent.TimeUnit;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -36,6 +39,7 @@ public class DataServlet extends HttpServlet {
     public class Name 
     {
         public ArrayList<String> names = new ArrayList<String>();
+        public ArrayList<String> emails = new ArrayList<String>();
     }
 
     Name name = new Name();
@@ -50,7 +54,7 @@ public class DataServlet extends HttpServlet {
         for (Entity entity : results.asIterable()) 
         {
             name.names.add( (String) entity.getProperty("viewer0"));
-
+            name.emails.add( (String) entity.getProperty("viewer1"));
         }
         String json = gson.toJson(name);
         response.setContentType("application/json;");
@@ -61,8 +65,12 @@ public class DataServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         Entity namesEntity = new Entity("Names");
-        getNames(request, namesEntity, datastore);
-
+        String comment = request.getParameter("name_input");
+        UserService userService = UserServiceFactory.getUserService();
+        String userEmail = userService.getCurrentUser().getEmail();
+        namesEntity.setProperty("viewer0", comment);
+        namesEntity.setProperty("viewer1", userEmail);
+        datastore.put(namesEntity);
         response.sendRedirect("/index.html");
     }
 
@@ -78,9 +86,12 @@ public class DataServlet extends HttpServlet {
         String rawNames = request.getParameter("name_input");
         String [] namesArray = rawNames.split(", ");
         String [] namesFormated = format(namesArray,namesArray.length);
+        UserService userService = UserServiceFactory.getUserService();
+        String userEmail = userService.getCurrentUser().getEmail();
         for(int i=0; i< namesFormated.length;i++)
         {
             namesEntity.setProperty("viewer0", namesFormated[i]);
+            namesEntity.setProperty("viewer1", userEmail);
             datastore.put(namesEntity);
             namesEntity = new Entity("Names");
         }

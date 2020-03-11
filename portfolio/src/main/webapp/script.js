@@ -37,7 +37,7 @@ function getName() {
     messagesListElement.innerHTML = '';
     for(i=0; i<jsonFile.names.length;i++)
     {
-    messagesListElement.appendChild(createListElement(jsonFile.names[i]));
+    messagesListElement.appendChild(createListElement(jsonFile.emails[i]+ ": "+jsonFile.names[i]));
     }
   });
 }
@@ -54,7 +54,7 @@ function getLogin() {
     fetch('/login').then(response => response.json()).then((jsonFile) => {
     const divTag = document.getElementById('loginForm');
     divTag.innerHTML = '';
-    if (jsonFile.login == false)
+    if (!jsonFile.login)
     {
         var loginUrl = jsonFile.loginUrl;
         var link = document.createElement("a");
@@ -64,9 +64,16 @@ function getLogin() {
     }
     else
     {
+        console.log("Hello")
         //Creates form to submit comments
         divTag.innerHTML = "<form action='/data' method='POST'> <p>Enter Your Name:</p><input type='text' name ='name_input'><br/><br/><input type='submit'/></form>";
     }
     
   });
+}
+
+function start()
+{
+    getName();
+    getLogin();
 }
