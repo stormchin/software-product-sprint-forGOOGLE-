@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet
 {
     public class LoginState
         {
-            private Boolean login = false;
+            private boolean login = false;
             private String loginUrl;
         }
 
@@ -32,7 +32,6 @@ public class LoginServlet extends HttpServlet
     {   
         LoginState person = new LoginState();
 
-        //Sets response type to json.
         response.setContentType("application/json;");
         
         //Create UserService instance
@@ -44,8 +43,7 @@ public class LoginServlet extends HttpServlet
         }
         else
         {
-            String urlToRedirectToAfterUserLogsIn = "/index.html";
-            String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+            String loginUrl = userService.createLoginURL("/index.html");
             person.loginUrl = loginUrl;
         }
         
