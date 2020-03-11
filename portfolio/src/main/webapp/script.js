@@ -66,7 +66,7 @@ function getLogin() {
     {
         console.log("Hello")
         //Creates form to submit comments
-        divTag.innerHTML = "<form action='/data' method='POST'> <p>Enter Your Name:</p><input type='text' name ='name_input'><br/><br/><input type='submit'/></form>";
+        divTag.innerHTML = "<form action='/data' method='POST'> <p>Enter a comment:</p><input type='text' name ='name_input'><br/><br/><input type='submit'/></form>";
     }
     
   });

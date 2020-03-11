@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet
         }
         else
         {
-            String loginUrl = userService.createLoginURL("/index.html");
+            String loginUrl = userService.createLoginURL("/home.html");
             person.loginUrl = loginUrl;
         }
         

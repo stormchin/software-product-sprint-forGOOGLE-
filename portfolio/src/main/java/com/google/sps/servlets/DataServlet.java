@@ -71,7 +71,7 @@ public class DataServlet extends HttpServlet {
         namesEntity.setProperty("viewer0", comment);
         namesEntity.setProperty("viewer1", userEmail);
         datastore.put(namesEntity);
-        response.sendRedirect("/index.html");
+        response.sendRedirect("/home.html");
     }
 
 

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Storm's Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body onload="start()">
+      <div class="header">
+          <div class="inner_header">
+              <div class="logo_container">
+                  <h1>THE<span>PORTFOLIO</span></h1>
+              </div>
+              <ul class="navigation">
+                  <a href="/home.html"><li>Home</li></a>
+                  <a href="/bio.html"><li>About Me</li></a>
+                  <a href="/resume.html"><li>Resume</li></a>
+                  <a href="/projects.html"><li>Projects</li></a>
+                  <a><li>Conact Info</li></a>
+              </ul>
+          </div>
+      </div>
+    <div id="content">
+        
+      <p id="hello"></p>
+      <div><img src= "/images/headshotcropped.png" alt="Storm Chin" class="circular--square"><h1>Storm's Portfolio</h1></div>
+      <h2 class="main">Photography</h2>
+      <p>Here are some photos from my travels!! I loves taking pictures of nature, particularly the ocean. The way the light bounces off the turqouise water is relaxing, mesmerizing and unlike anything on this planet. </p>
+    <div class="row">
+    
+    <div class="column">
+        <img src="/images/jamaica1.jpg" alt="Jamaica 1" style="width:100%">
+    </div>
+    <div class="column">
+        <img src="/images/jamaica2.jpg" alt="Jamaica 2" style="width:100%">
+    </div>
+    <div class="column">
+        <img src="/images/jamaica3.jpg" alt="Jamaica 3" style="width:100%">
+    </div>
+    
+    </div>
+      <p><b>LINKS TO MY OTHER WORKS/PAGES</b></p>
+      <div class="row">
+        <div class="column"><a href="https://www.linkedin.com/in/storm-chin-3b518a16a" target="_blank"><img src="/images/linkedinlogo.png" width="50%"></a></div>
+        <div class="column"><a href="https://github.com/stormchin" target="_blank"><img src="/images/githubLogo.png" width="50%"></a></div>
+      </div>
+      <p>Click here to get a random fact about me:</p>
+      <button onclick="addRandomGreeting()">FACT</button>
+      <div id="greeting-container"></div>
+      <div id="loginForm"></div>
+    <p>People who have visited my page:</p>
+    <ul id="messages"></ul>
+    </div>
+  </body>
+</html>
