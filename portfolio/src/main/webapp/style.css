@@ -7,6 +7,87 @@
   width: 650px;
 }
 
+.header
+{
+    background-color: black;
+    width: 100%;
+    height: 80px;
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    list-style: none;
+    text-decoration: none;
+}
+
+.inner_header
+{
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    list-style: none;
+    text-decoration: none;
+    width: 1000px;
+    height: 100%;
+    background-color: black;
+}
+
+.logo_container
+{
+    height: 100%;
+    display: table;
+    float: left;
+}
+
+.logo_container h1
+{
+    color: white;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    font-family: "Montserrat";
+    font-size: 28px;
+    font-weight: 20;
+}
+.logo_container h1 span
+{
+    font-weight: 600;
+}
+
+.navigation
+{
+    margin: 0;
+    padding: 0;
+    display: block;
+    list-style: none;
+    text-decoration: none;
+    float: right;
+    height: 100%
+}
+
+.navigation a
+{
+    height: 100%;
+    display: table;
+    float: left;
+    padding: 0px 20px
+}
+
+.navigation a li
+{
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    color: white;
+    font-family: 'Montserrat';
+    font-size: 16px;
+    
+
+}
+
+.navigation a li:hover
+{
+    color: rgba(0, 162, 255, 0.548);
+}
 
 #greeting-container 
 {
@@ -17,6 +98,8 @@ body
 {
     background-color: rgba(0, 162, 255, 0.548);
 }
+
+
 .main
 {
     color:black;
